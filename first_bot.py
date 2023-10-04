@@ -48,9 +48,9 @@ user_img = Image.open(image_path)
 openai.api_key = st.secrets.api_credentials.api_key
 
 if "messages" not in st.session_state:
-st.session_state["messages"] = [
-    {"role": "user", "content": "Argue about the relative qualities of the best fruit."},
-]
+    st.session_state["messages"] = [
+        {"role": "user", "content": "Argue about the relative qualities of the best fruit."},
+    ]
 
 if "conversation" not in st.session_state:
     c = Conversation("Argue about the relative qualities of the best fruit.")
