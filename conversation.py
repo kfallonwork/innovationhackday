@@ -15,7 +15,7 @@ class Conversation:
 	def addParticipant(self, character):
 		character.topic = self.topic
 		self.characters.append(character)
-		random.shuffle(self.characters)
+		self.prior_messages += f"{character.name} enters the scene: *{character.starting_action}" + "\n"
 		
 	def converse(self):
 		character = random.choice([c for c in self.characters if c != self.previous_character]) #choose a new character

@@ -11,11 +11,9 @@ def progressConversation():
     c = st.session_state["conversation"]
     output = c.converse()
     message = f"{output['name']} : {output['utterance']} ({output['thoughts']}) *{output['action']}*"
-    st.chat_message(output['name']).write(message)
     st.session_state["messages"].append({"role": output["name"], "content": message})
 
 def addSceneDirection(direction):
-    st.chat_message("user").write(direction)
     st.session_state["messages"].append({"role": "user", "content": direction})
     c = st.session_state["conversation"]
     c.addSceneDirection(direction)
@@ -46,10 +44,11 @@ with st.sidebar:
         )
         submitted = st.form_submit_button("Submit")
         if submitted:
-            st.write("Name", name, "description", description, "temperature", temperature/10, "feeling", feeling, "action", action)
-            char = Character(name = name, description = description, temperature= temperature, feeling = feeling, action = action)
+            st.write("Name", name, "description", description, "temperature", temperature/10, "starting_feeling", feeling, "action", action)
+            char = Character(name = name, description = description, temperature= temperature, starting_feeling = feeling, starting_action = action)
             c = st.session_state["conversation"]
             c.addParticipant(char)
+            st.session_state["messages"].append({"role": char.name, "content": f"*{char.starting_action}*"})
 
             
 image_path = Path('streamlit/images/friends.png')

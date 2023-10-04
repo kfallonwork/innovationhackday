@@ -1,5 +1,5 @@
 class Character:
-	def __init__(self, name, description, temperature = 0.5, starting_feeling = "neutral"):
+	def __init__(self, name, description, temperature = 0.5, starting_feeling = "neutral", starting_action = "Walks into the scene"):
 		self.name = name
 		self.description = description
 		self.temperature = temperature
@@ -7,6 +7,7 @@ class Character:
 		self.current_feeling = f"{self.name} is {starting_feeling}"
 		self.last_thought = ""
 		self.topic = ""
+		self.starting_action = f"{starting_action}"
 	
 	def getPrompt(self, prior_conversation):
 		return [{"role": "user", 
