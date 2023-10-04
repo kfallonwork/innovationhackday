@@ -35,7 +35,7 @@ if "characters" not in st.session_state:
     st.session_state["characters"] = [
         Character(name = "Andrew", description = "Andrew smells real good. He talks about it a lot though. Like a weird amount.")
     ]
-
+    
 st.title("") 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [
