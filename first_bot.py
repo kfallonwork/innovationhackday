@@ -37,7 +37,7 @@ with st.sidebar:
         name = st.text_area("Name")
         description = st.text_area("Description")
         action = st.text_area("Action")
-        temperature = st.slider("Temperature", min_value=0, max_value=10)
+        temperature = st.slider("Temperature", min_value=0, max_value=10, value=5)
         feeling = st.selectbox(
         'Which feeling does your character have?',
         ('Happy','Sad','Angry')
