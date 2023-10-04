@@ -16,9 +16,9 @@ def progressConversation():
 
 def addSceneDirection(direction):
     st.chat_message("user").write(direction)
-    st.session_state["messages"].append({"role": "user", "content": prompt})
+    st.session_state["messages"].append({"role": "user", "content": direction})
     c = st.session_state["conversation"]
-    c.addSceneDirection(prompt)
+    c.addSceneDirection(direction)
 
 image_path = Path('streamlit/images/logo.png')
 logo = Image.open(image_path)
@@ -46,17 +46,17 @@ image_path = Path('streamlit/images/user.png')
 user_img = Image.open(image_path)
 
 openai.api_key = st.secrets.api_credentials.api_key
-
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {"role": "user", "content": "Argue about the relative qualities of the best fruit."},
-    ]
-
+    
 if "conversation" not in st.session_state:
     c = Conversation("Argue about the relative qualities of the best fruit.")
     c.addParticipant(Character(name = "Andrew", description = "Andrew smells real good. He talks about it a lot though. Like a weird amount."))
     c.addParticipant(Character(name = "Katie", description = "Katie is really really angry about melons."))
+    
     st.session_state["conversation"] = c
+    st.session_state["messages"] = []
+    
+    addSceneDirection("Argue about the relative qualities of the best fruit.")
+    
     progressConversation()
     progressConversation()
     progressConversation()
