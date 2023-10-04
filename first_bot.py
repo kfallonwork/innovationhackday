@@ -33,7 +33,7 @@ with st.sidebar:
     st.markdown("Reanact our AI generated friends script with us, and add new characters as we go along.")
     st.markdown("For more information about our team and what we get up to please check out our **substack:** https://waterstonsinnovation.substack.com/")
     with st.form("Add a new character"):
-        st.write("Form")
+        st.write("Add a new character")
         name = st.text_area("Name")
         description = st.text_area("Description")
         action = st.text_area("Action")
