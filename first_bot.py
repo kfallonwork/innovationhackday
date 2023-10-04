@@ -45,7 +45,7 @@ assistant_img = Image.open(image_path)
 image_path = Path('streamlit/images/user.png')
 user_img = Image.open(image_path)
 
-openai.api_key = <SECRET> #st.secrets.api_credentials.api_key
+openai.api_key = st.secrets.api_credentials.api_key
 
 if "messages" not in st.session_state:
 st.session_state["messages"] = [
