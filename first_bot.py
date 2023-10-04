@@ -29,8 +29,8 @@ with st.sidebar:
     image_path = Path('streamlit/images/logo1.png')
     logo = Image.open(image_path)
     st.image(logo)
-    st.title("Welcome to Waterstons Innovation bot!")
-    st.markdown("This chatbot will answer all of your questions about robot dogs.")
+    st.title("Welcome to Waterstons Friends chat!")
+    st.markdown("Reanact our AI generated friends script with us, and add new characters as we go along.")
     st.markdown("For more information about our team and what we get up to please check out our **substack:** https://waterstonsinnovation.substack.com/")
     with st.form("Add a new character"):
         st.write("Form")
@@ -50,7 +50,7 @@ with st.sidebar:
             c.addParticipant(char)
             st.session_state["messages"].append({"role": char.name, "content": f"*{char.starting_action}*"})
 
-            
+
 image_path = Path('streamlit/images/friends.png')
 image1 = Image.open(image_path)
 st.image(image1, use_column_width=True)
