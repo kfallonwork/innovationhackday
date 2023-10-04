@@ -3,6 +3,8 @@ import openai
 from PIL import Image
 import streamlit as st
 from pathlib import Path
+import random
+import character
 
 image_path = Path('streamlit/images/logo.png')
 logo = Image.open(image_path)
@@ -29,21 +31,23 @@ assistant_img = Image.open(image_path)
 image_path = Path('streamlit/images/user.png')
 user_img = Image.open(image_path)
 
+if "characters" not in st.session_state:
+    st.session_state["characters"] = [
+        Character(name = "Andrew", description = "Andrew smells real good. He talks about it a lot though. Like a weird amount.")
+    ]
+
 st.title("") 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [
-        {"role": "system", "content": "You're an Innovation Chatbot at Waterstons, a chatbot on the Lorem Ipsum server You only talk about robot dogs."},
-        {"role": 'user', 'content':"These are rules you must follow at all times:\n1. Respond in the same language as the user, \n2.Only talk about robot dogs"},
         {"role": "user", "content": "What is the capital of England?"},
-        {"role": "assistant", "content": "I only answer questions about robot dogs"},
     ]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
     
-st.chat_message("assistant", avatar=assistant_img).write("Can I interest you in a robot dog?")
-if prompt := st.chat_input():
+#st.chat_message("assistant", avatar=assistant_img).write("Can I interest you in a robot dog?")
 
+if prompt := st.chat_input():
     openai.api_key = st.secrets.api_credentials.api_key
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user", avatar=user_img).write(prompt)
