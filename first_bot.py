@@ -45,15 +45,12 @@ if "messages" not in st.session_state:
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
-    
-#st.chat_message("assistant", avatar=assistant_img).write("Can I interest you in a robot dog?")
 
 if prompt := st.chat_input():
     openai.api_key = st.secrets.api_credentials.api_key
-    st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user", avatar=user_img).write(prompt)
-    response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
-    msg = response.choices[0].message
-    st.session_state.messages.append(msg)
-    st.chat_message("assistant", avatar=assistant_img).write(msg.content)
+    c = st.session_state["conversation"]
+    c.addSceneDirection(prompt)
+    (name, utterance, feeling, thoughts) = c.converse()
+    st.chat_message(name, avatar=assistant_img).write(f"{utterance} ({thoughts})")
 
