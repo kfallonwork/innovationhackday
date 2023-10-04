@@ -1,10 +1,10 @@
 class Character:
-	def __init__(self, name, description, temperature = 0.5, ns = 1):
+	def __init__(self, name, description, temperature = 0.5, starting_feeling = "neutral":
 		self.name = name
 		self.description = description
 		self.temperature = temperature
 		self.ns = ns
-		self.current_feeling = f"{self.name} is happy"
+		self.current_feeling = f"{self.name} is {starting_feeling}"
 		self.last_thought = ""
 		self.topic = ""
 	
