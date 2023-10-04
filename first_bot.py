@@ -4,7 +4,21 @@ from PIL import Image
 import streamlit as st
 from pathlib import Path
 import random
-import character
+from character import Character
+from conversation import Conversation
+
+def progressConversation():
+    c = st.session_state["conversation"]
+    output = c.converse()
+    message = f"{output['name']} : {output['utterance']} ({output['thoughts']})"
+    st.chat_message(output['name']).write(message)
+    st.session_state["messages"].append({"role": output["name"], "content": message})
+
+def addSceneDirection(direction):
+    st.chat_message("user").write(direction)
+    st.session_state["messages"].append({"role": "user", "content": prompt})
+    c = st.session_state["conversation"]
+    c.addSceneDirection(prompt)
 
 image_path = Path('streamlit/images/logo.png')
 logo = Image.open(image_path)
@@ -31,26 +45,28 @@ assistant_img = Image.open(image_path)
 image_path = Path('streamlit/images/user.png')
 user_img = Image.open(image_path)
 
+openai.api_key = <SECRET> #st.secrets.api_credentials.api_key
+
+if "messages" not in st.session_state:
+st.session_state["messages"] = [
+    {"role": "user", "content": "Argue about the relative qualities of the best fruit."},
+]
+
 if "conversation" not in st.session_state:
     c = Conversation("Argue about the relative qualities of the best fruit.")
     c.addParticipant(Character(name = "Andrew", description = "Andrew smells real good. He talks about it a lot though. Like a weird amount."))
     c.addParticipant(Character(name = "Katie", description = "Katie is really really angry about melons."))
     st.session_state["conversation"] = c
+    progressConversation()
+    progressConversation()
+    progressConversation()
     
 st.title("") 
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {"role": "user", "content": "What is the capital of England?"},
-    ]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
-
+    
 if prompt := st.chat_input():
-    openai.api_key = st.secrets.api_credentials.api_key
-    st.chat_message("user", avatar=user_img).write(prompt)
-    c = st.session_state["conversation"]
-    c.addSceneDirection(prompt)
-    (name, utterance, feeling, thoughts) = c.converse()
-    st.chat_message(name, avatar=assistant_img).write(f"{utterance} ({thoughts})")
+    addSceneDirection(prompt)
+    progressConversation()
 

@@ -1,3 +1,4 @@
+
 import random
 import openai
 import character
@@ -9,6 +10,7 @@ class Conversation:
 		self.topic = topic
 		#self.model = "gpt-3.5-turbo"
 		self.model = "gpt-4"
+		self.previous_character = None
 		
 	def addParticipant(self, character):
 		character.topic = self.topic
@@ -16,8 +18,8 @@ class Conversation:
 		random.shuffle(self.characters)
 		
 	def converse(self):
-		character = random.choice([c for c in self.characters if c != character]) #choose a new character
-		
+		character = random.choice([c for c in self.characters if c != self.previous_character]) #choose a new character
+		self.previous_character = character
 		message_content = character.getPrompt(self.prior_messages)
 			
 		chat_completion = openai.ChatCompletion.create(
@@ -34,6 +36,7 @@ class Conversation:
 		
 		self.prior_messages += f"{output['name']} : {output['utterance']}" + "\n" #don't includes thoughts into the conversation history"
 		#conversation_output = f"{output['name']} : {output['utterance']} ({output['thoughts']})\n"
+
 		return output
 		
 	def addSceneDirection(self, direction):

@@ -17,7 +17,6 @@ You are discussing: {self.topic}
 Current feeling: {self.current_feeling}
 Last thought: {self.last_thought}
 Keep your answers concise and conversational.
-You can change the topic of conversation if it is appropriate.
 Reply to the conversation in character.
 {prior_conversation}
 ---
