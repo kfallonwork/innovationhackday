@@ -34,7 +34,7 @@ class Conversation:
 		character.last_thought = output["thoughts"]
 		character.current_feeling = output["feeling"]
 		
-		self.prior_messages += f"{output['name']} : {output['utterance']}" + "\n" #don't includes thoughts into the conversation history"
+		self.prior_messages += f"{output['name']} : {output['utterance']} *{output['action']}*" + "\n" #don't includes thoughts into the conversation history"
 		#conversation_output = f"{output['name']} : {output['utterance']} ({output['thoughts']})\n"
 
 		return output
