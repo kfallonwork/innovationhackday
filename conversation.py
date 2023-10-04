@@ -1,5 +1,5 @@
-import openai
 import random
+import openai
 import character
 
 class Conversation:
@@ -32,8 +32,9 @@ class Conversation:
 		character.last_thought = output["thoughts"]
 		character.current_feeling = output["feeling"]
 		
-		self.prior_messages += f"{output['name']} : {output['utterance']}" #don't includes thoughts into the conversation history"
+		self.prior_messages += f"{output['name']} : {output['utterance']}" + "\n" #don't includes thoughts into the conversation history"
 		#conversation_output = f"{output['name']} : {output['utterance']} ({output['thoughts']})\n"
 		return output
 		
-		
+	def addSceneDirection(self, direction):
+		self.prior_messages += f"{direction}" + "\n"
