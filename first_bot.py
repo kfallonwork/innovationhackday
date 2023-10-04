@@ -12,6 +12,7 @@ def progressConversation():
     output = c.converse()
     message = f"{output['name']} : {output['utterance']} ({output['thoughts']}) *{output['action']}*"
     st.session_state["messages"].append({"role": output["name"], "content": message})
+    #st.chat_message(msg["user"]).write(msg["content"])
 
 def addSceneDirection(direction):
     st.session_state["messages"].append({"role": "user", "content": direction})
@@ -55,7 +56,6 @@ image_path = Path('streamlit/images/friends.png')
 image1 = Image.open(image_path)
 st.image(image1, use_column_width=True)
 
-
 image_path = Path('streamlit/images/assistant.png')
 assistant_img = Image.open(image_path)
 image_path = Path('streamlit/images/user.png')
@@ -91,7 +91,7 @@ if "conversation" not in st.session_state:
     st.session_state["conversation"] = c
     st.session_state["messages"] = []
     
-    addSceneDirection("Argue about the relative qualities of the best fruit.")
+    addSceneDirection("The friends are hanging out at Central Perk one evening. They are discussing their days.")
     
     progressConversation()
     progressConversation()
