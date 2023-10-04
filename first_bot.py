@@ -20,7 +20,7 @@ def addSceneDirection(direction):
     c = st.session_state["conversation"]
     c.addSceneDirection(direction)
 
-image_path = Path('streamlit/images/logo.png')
+image_path = Path('streamlit/images/friends.png')
 logo = Image.open(image_path)
 st.set_page_config(
     page_title="Innovation Bot",
@@ -35,7 +35,7 @@ with st.sidebar:
     st.markdown("This chatbot will answer all of your questions about robot dogs.")
     st.markdown("For more information about our team and what we get up to please check out our **substack:** https://waterstonsinnovation.substack.com/")
 
-image_path = Path('streamlit/images/robot_dog.png')
+image_path = Path('streamlit/images/friends.png')
 image1 = Image.open(image_path)
 st.image(image1, use_column_width=True)
 
