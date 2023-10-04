@@ -34,7 +34,24 @@ with st.sidebar:
     st.title("Welcome to Waterstons Innovation bot!")
     st.markdown("This chatbot will answer all of your questions about robot dogs.")
     st.markdown("For more information about our team and what we get up to please check out our **substack:** https://waterstonsinnovation.substack.com/")
+    with st.form("Add a new character"):
+        st.write("Form")
+        name = st.text_area("Name")
+        description = st.text_area("Description")
+        action = st.text_area("Action")
+        temperature = st.slider("Temperature", min_value=0, max_value=10)
+        feeling = st.selectbox(
+        'Which feeling does your character have?',
+        ('Happy','Sad','Angry')
+        )
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            st.write("Name", name, "description", description, "temperature", temperature/10, "feeling", feeling, "action", action)
+            char = Character(name = name, description = description, temperature= temperature, feeling = feeling, action = action)
+            c = st.session_state["conversation"]
+            c.addParticipant(char)
 
+            
 image_path = Path('streamlit/images/friends.png')
 image1 = Image.open(image_path)
 st.image(image1, use_column_width=True)
