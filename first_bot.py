@@ -7,17 +7,18 @@ import random
 from character import Character
 from conversation import Conversation
 
-def progressConversation():
+def progressConversation(who = None):
     c = st.session_state["conversation"]
-    output = c.converse()
+    output = c.converse(who)
     message = f"{output['name']} : {output['utterance']} ({output['thoughts']}) *{output['action']}*"
     st.session_state["messages"].append({"role": output["name"], "content": message})
-    #st.chat_message(msg["user"]).write(msg["content"])
+    st.chat_message(output["name"]).write(message)
 
 def addSceneDirection(direction):
     st.session_state["messages"].append({"role": "user", "content": direction})
     c = st.session_state["conversation"]
     c.addSceneDirection(direction)
+    st.chat_message("user").write(direction)
 
 image_path = Path('streamlit/images/friends.png')
 logo = Image.open(image_path)
@@ -46,7 +47,7 @@ with st.sidebar:
         submitted = st.form_submit_button("Submit")
         if submitted:
             st.write("Name", name, "description", description, "temperature", temperature/10, "starting_feeling", feeling, "action", action)
-            char = Character(name = name, description = description, temperature= temperature, starting_feeling = feeling, starting_action = action)
+            char = Character(name = name, description = description, temperature= temperature/10, starting_feeling = feeling, starting_action = action)
             c = st.session_state["conversation"]
             c.addParticipant(char)
             st.session_state["messages"].append({"role": char.name, "content": f"*{char.starting_action}*"})
@@ -106,7 +107,8 @@ if prompt := st.chat_input():
     if prompt.isnumeric():
         for _ in range(int(prompt)):
             progressConversation()
+    elif st.session_state["conversation"].isCharacter(prompt):
+        progressConversation(prompt)
     else:
         addSceneDirection(prompt)
         progressConversation()
-

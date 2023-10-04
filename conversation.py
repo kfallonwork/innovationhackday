@@ -6,6 +6,7 @@ import character
 class Conversation:
 	def __init__(self, topic):
 		self.characters = []
+		self.character_map = {}
 		self.prior_messages = ""
 		self.topic = topic
 		#self.model = "gpt-3.5-turbo"
@@ -15,10 +16,18 @@ class Conversation:
 	def addParticipant(self, character):
 		character.topic = self.topic
 		self.characters.append(character)
+		self.character_map[character.name] = character
 		self.prior_messages += f"{character.name} enters the scene: *{character.starting_action}" + "\n"
 		
-	def converse(self):
-		character = random.choice([c for c in self.characters if c != self.previous_character]) #choose a new character
+	def isCharacter(self, name):
+		return name in self.character_map
+		
+	def converse(self, who = None):
+		if who in self.character_map:
+			character = self.character_map[who]
+		else:
+			character = random.choice([c for c in self.characters if c != self.previous_character]) #choose a new character
+			
 		self.previous_character = character
 		message_content = character.getPrompt(self.prior_messages)
 			
