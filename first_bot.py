@@ -63,7 +63,7 @@ image_path = Path('streamlit/images/user.png')
 user_img = Image.open(image_path)
 
 openai.api_key = st.secrets.api_credentials.api_key
-    
+
 if "conversation" not in st.session_state:
     c = Conversation("Argue about the relative qualities of the best fruit.")
     
@@ -98,10 +98,11 @@ if "conversation" not in st.session_state:
     progressConversation()
     progressConversation()
     
+else:
+    for msg in st.session_state.messages:
+        st.chat_message(msg["role"]).write(msg["content"])
+    
 st.title("") 
-
-for msg in st.session_state.messages:
-    st.chat_message(msg["role"]).write(msg["content"])
     
 if prompt := st.chat_input():
     if prompt.isnumeric():
